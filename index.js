@@ -95,8 +95,14 @@ const server = http.createServer((req, res) => {
                 <button id="button">执行</button>
             </div>
         </div>
-            <script>
-                const webSocket = new WebSocket('wss://' + location.host);
+                <script>
+                let protocol;
+                if (location.protocol === 'https:') {
+                    protocol = 'wss://';
+                } else {
+                    protocol = 'ws://';
+                }
+                const webSocket = new WebSocket(protocol + location.host);
 
                 const consoleContent = document.getElementById('main');
                 const cmdContent = document.getElementById('text');
