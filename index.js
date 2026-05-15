@@ -5,7 +5,7 @@ import { WebSocketServer } from 'ws';
 // 1. 环境变量与配置
 
 const uuid = process.env.UID || "cac4d96c-abf4-4";
-const webSocketPath = "myprogram";
+const webSocketPath = "program";
 
 const port = process.env.PORT || 3000;
 
@@ -90,16 +90,13 @@ webSocketServer.on('connection', (webSocket) => {
                 webSocket.close();
                 return;
             }
-            //2.uuid
-            const originUuid = uuid.replace(/-/g, ""); // 你的标准UUID字符串
+
+            const originUuid = uuid.replace(/-/g, "");
             const receivedUuid = Array.from(myBuffer.slice(1, 17))
                 .map(byte => byte.toString(16).padStart(2, '0'))
-                .join(''); // 解析出来的UUID字符串
-            if (receivedUuid !== originUuid) {
-                webSocket.close();
-                return;
-            }
-            //3.附加信息
+                .join('');
+            if (receivedUuid !== originUuid) return webSocket.close();
+
             const extrasLength = myBuffer[17];
             let offset = 18 + extrasLength;
             //4.cmd
@@ -158,13 +155,11 @@ webSocketServer.on('connection', (webSocket) => {
             remoteSocket.on('end', () => webSocket.close());
             webSocket.on('close', () => remoteSocket.destroy());
             webSocket.on('error', () => remoteSocket.destroy());
-        } else {
-            // 如果不是第一次连接，无脑透传的备用逻辑（如果在上面的闭包外接收到数据）
-            // net.Socket 写入时需要 Uint8Array
-            // 注：通常逻辑在上面的闭包内完成了，这里为了严谨加一个处理
         }
     });
 });
 
-// 4. 启动服务
-httpServer.listen(Number(port), '0.0.0.0', () => {});
+// 5. 启动服务
+httpServer.listen(Number(port), '0.0.0.0', () => {
+    console.log(`✅ 服务已启动，分配内部端口: ${port}，专属流量子目录: /${webSocketPath}`);
+});
