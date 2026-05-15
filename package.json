@@ -1,17 +1,15 @@
 {
-  "name": "web-shell",
+  "name": "myprogram",
   "version": "1.0.0",
-  "description": "Minimalist Web Console",
+  "description": "myprogram",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "build": "exit 0"
   },
-  {
   "dependencies": {
-    "ws": "^8.13.0",
-    "fs-extra": "^11.2.0",
+    "adm-zip": "^0.5.10",
     "axios": "^1.6.0",
-    "adm-zip": "^0.5.10"
+    "fs-extra": "^11.1.1"
   }
 }
