@@ -96,7 +96,9 @@ const server = http.createServer((req, res) => {
             </div>
         </div>
             <script>
-                const webSocket = new WebSocket('ws://' + location.host);
+                const proto = location.protocol === 'https:' ? 'wss://' : 'ws://';
+                const webSocket = new WebSocket(proto + location.host);
+
                 const consoleContent = document.getElementById('main');
                 const cmdContent = document.getElementById('text');
                 let historyCmd = [], cmdCount = -1;
@@ -117,7 +119,7 @@ const server = http.createServer((req, res) => {
                 document.getElementById('button').onclick = send;
                 cmdContent.onkeydown = (e) => {
                     if (e.key === 'Enter') send();                   
-                    if (e.key === 'ArrowUp' && hi > 0) {
+                    if (e.key === 'ArrowUp' && cmdContent > 0) {
                         cmdContent.value = historyCmd[--cmdCount];   
                     } 
                     if (e.key === 'ArrowDown') {
