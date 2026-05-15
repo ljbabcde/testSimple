@@ -5,12 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "echo 'no build'"
+    "build": "exit 0"
   },
   "dependencies": {
-    "adm-zip": "^0.5.12",
-    "axios": "^1.6.8",
-    "fs-extra": "^11.2.0",
-    "http-proxy": "^1.18.1"
+    "ws": "^8.18.0"
   }
 }
