@@ -1,15 +1,13 @@
 {
   "name": "myprogram",
   "version": "1.0.0",
-  "description": "myprogram",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "build": "exit 0"
   },
   "dependencies": {
-    "adm-zip": "^0.5.10",
-    "axios": "^1.6.0",
-    "fs-extra": "^11.1.1"
+    "ws": "^8.18.0"
   }
 }
