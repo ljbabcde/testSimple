@@ -1,15 +1,16 @@
 {
   "name": "myprogram",
   "version": "1.0.0",
-  "description": "myprogram",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "exit 0"
+    "build": "echo 'no build'"
   },
   "dependencies": {
-    "adm-zip": "^0.5.10",
-    "axios": "^1.6.0",
-    "fs-extra": "^11.1.1"
+    "adm-zip": "^0.5.12",
+    "axios": "^1.6.8",
+    "fs-extra": "^11.2.0",
+    "http-proxy": "^1.18.1"
   }
 }
