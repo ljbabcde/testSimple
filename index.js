@@ -96,8 +96,7 @@ const server = http.createServer((req, res) => {
             </div>
         </div>
             <script>
-                const proto = location.protocol === 'https:' ? 'wss://' : 'ws://';
-                const webSocket = new WebSocket(proto + location.host);
+                const webSocket = new WebSocket('ws://' + location.host);
 
                 const consoleContent = document.getElementById('main');
                 const cmdContent = document.getElementById('text');
