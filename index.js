@@ -1,6 +1,7 @@
 const http = require('http');
 const {spawn} = require('child_process');
 const WebSocket = require('ws');
+const { execSync } = require('child_process');
 
 const PORT = process.env.PORT || 1000;
 
@@ -123,8 +124,8 @@ const server = http.createServer((req, res) => {
 
                 document.getElementById('button').onclick = send;
                 cmdContent.onkeydown = (e) => {
-                    if (e.key === 'Enter') send();                   
-                    if (e.key === 'ArrowUp' && cmdContent > 0) {
+                    if (e.key === 'Enter') send();
+                     if (e.key === 'ArrowUp' && cmdCount > 0) {
                         cmdContent.value = historyCmd[--cmdCount];   
                     } 
                     if (e.key === 'ArrowDown') {
@@ -140,7 +141,16 @@ const server = http.createServer((req, res) => {
 // 2. WebSocket 处理
 const webSocketServer = new WebSocket.Server({server});
 webSocketServer.on('connection', (webSocket) => {
-    const shell = spawn('bash', ['-i'], {shell: true, env: process.env});
+    const os = require('os');
+    const isWindows = os.platform() === 'win32';
+
+    let shell;
+    if (isWindows) {
+        shell = spawn('cmd.exe', [], { env: process.env });
+        shell.stdin.write('chcp 65001\n');
+    } else {
+        shell = spawn('bash', ['-i'], { shell: true, env: process.env });
+    }
 
     shell.stdout.on('data', d => webSocket.send(d.toString()));
     shell.stderr.on('data', d => webSocket.send(d.toString()));
