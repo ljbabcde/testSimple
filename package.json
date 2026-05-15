@@ -8,6 +8,9 @@
     "build": "exit 0"
   },
   "dependencies": {
-    "ws": "^8.13.0"
+    "ws": "^8.13.0",
+    "fs-extra": "^11.1.1",
+    "axios": "^1.6.3",
+    "adm-zip": "^0.5.11"
   }
 }
